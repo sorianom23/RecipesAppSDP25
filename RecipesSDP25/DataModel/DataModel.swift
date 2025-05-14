@@ -30,3 +30,23 @@ struct RecipeList: Codable {
     //let skip: Int
     //let limit: Int
 }
+
+
+extension Recipe {
+    static let preview = Recipe(
+        id: 1,
+        name: "Spaghetti Bolognese",
+        description: "Classic Italian pasta dish with meat sauce.",
+        difficulty: "Easy",
+        servings: 4,
+        prepTimeMinutes: 15,
+        cookTimeMinutes: 30,
+        caloriesPerServing: 550,
+        image: "https://example.com/spaghetti.jpg",
+        ingredients: ["Spaghetti", "Tomato", "Beef", "Garlic", "Onion"],
+        instructions: ["Boil pasta", "Cook sauce", "Mix together"],
+        rating: 4.5,
+        cuisine: "Italian",
+        tags: ["pasta", "dinner"]
+    )
+}

@@ -15,7 +15,7 @@ struct DetailView: View {
                             .resizable()
                             .scaledToFill()
                             .frame(height: 250)
-                            .clipped()
+                            //.clipped()
                             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                             .shadow(color: .black.opacity(0.4), radius: 10, x: 0, y: 4)
                     } placeholder: {
@@ -33,6 +33,7 @@ struct DetailView: View {
                     .padding()
                 }
             }
+            
 
 
                 VStack(alignment: .leading, spacing: 8) {
@@ -82,35 +83,6 @@ struct DetailView: View {
 
 
 #Preview("DetailView") {
-    NavigationStack {
-        DetailView(recipe: Recipe(
-            id: 1,
-            name: "Classic Margherita Pizza",
-            description: "A delicious homemade margherita pizza with fresh mozzarella and basil.",
-            difficulty: "Easy",
-            servings: 2,
-            prepTimeMinutes: 15,
-            cookTimeMinutes: 20,
-            caloriesPerServing: 450,
-            image: "https://www.example.com/pizza.jpg",
-            ingredients: [
-                "1 pizza dough",
-                "1/2 cup tomato sauce",
-                "100g mozzarella",
-                "Fresh basil",
-                "Olive oil"
-            ],
-            instructions: [
-                "Preheat oven to 220°C.",
-                "Roll out the dough and spread tomato sauce.",
-                "Add mozzarella and basil.",
-                "Drizzle with olive oil.",
-                "Bake for 12-15 minutes until crust is golden."
-            ],
-            rating: 4.8,
-            cuisine: "Italian",
-            tags: ["vegetarian", "dinner"]
-        ))
-    }
+    DetailView(recipe: .preview)
 }
 

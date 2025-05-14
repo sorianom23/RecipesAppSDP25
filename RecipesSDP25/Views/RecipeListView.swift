@@ -54,7 +54,7 @@ struct RecipeListView: View {
                             }
                         }
                     }
-                    .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                    .swipeActions {
                         Button {
                             viewModel.toggleFavorite(recipe)
                         } label: {
