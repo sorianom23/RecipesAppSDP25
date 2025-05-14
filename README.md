@@ -51,17 +51,6 @@ Para ejecutar este proyecto:
 3. Asegúrate de que el objetivo de despliegue sea **iOS 17 o superior**
 4. Ejecuta la app en un simulador o dispositivo real
 
----
-
-## 👩‍🏫 Para docentes
-
-Esta app es modular y fácil de extender. Es un excelente punto de partida para enseñar:
-
-- Separación de responsabilidades usando ViewModels
-- Inyección del entorno (`.environment(...)`)
-- Patrones de observabilidad modernos
-- Arquitectura **MVVM** en SwiftUI
-- Carga de datos desde archivos JSON locales o remotos
 
 
 --- 
@@ -117,15 +106,4 @@ To run this project:
 2. Open the `.xcodeproj` or `.xcodeworkspace` file
 3. Make sure your deployment target is **iOS 17+**
 4. Run the app on a simulator or real device
-
----
-
-## 👩‍🏫 For Instructors
-
-This app is modular and easy to extend. It is a great starting point for teaching:
-- ViewModel separation
-- Environment injection
-- Observable design patterns
-- MVVM in SwiftUI
-- Data loading from bundled or external JSON
 
