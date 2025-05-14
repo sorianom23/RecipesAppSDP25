@@ -27,7 +27,8 @@ Esta app fue creada con los siguientes objetivos educativos:
   - `TabView`
   - `List`
   - `@Environment`
-  - `@Bindable`
+  - `@State`
+  - `@Observable`
 
 ---
 
@@ -83,7 +84,8 @@ This app was created with the following educational goals in mind:
   - `TabView`
   - `List`
   - `@Environment`
-  - `@Bindable`
+  - `@State`
+  - `@Observable`
 
 ---
 
