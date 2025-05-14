@@ -8,17 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @Environment(RecipeViewModel.self) private var viewModel
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            Tab("Recipes", systemImage: "list.bullet") {
+                    RecipeListView()
+            }
+
+            Tab("Saved", systemImage: "bookmark.fill") {
+                    SavedView()
+            }
+
+            Tab("Shopping List", systemImage: "cart.fill") {
+                    ShoppingListView()
+                    .environment(ShoppingListViewModel())
+            }
+
+            Tab("Timer", systemImage: "timer") {
+                    TimerView()
+            }
         }
-        .padding()
     }
 }
 
 #Preview {
     ContentView()
+        .environment(RecipeViewModel())
 }
+
