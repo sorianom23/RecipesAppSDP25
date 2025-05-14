@@ -23,7 +23,6 @@ struct ContentView: View {
 
             Tab("Shopping List", systemImage: "cart.fill") {
                     ShoppingListView()
-                    .environment(ShoppingListViewModel())
             }
 
             Tab("Timer", systemImage: "timer") {
