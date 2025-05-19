@@ -38,11 +38,16 @@ class RecipeViewModel {
         }
     }
     
-    func filteredRecipes(cuisine: String, difficulty: String) -> [Recipe] {
+    func filteredRecipes(cuisine: String, difficulty: String, query: String) -> [Recipe] {
         recipes.filter { recipe in
             let cuisineOK = cuisine == "All" || recipe.cuisine == cuisine
             let difficultyOK = difficulty == "All" || recipe.difficulty == difficulty
-            return cuisineOK && difficultyOK
+
+            let queryOK = query.isEmpty ||
+                recipe.name.localizedCaseInsensitiveContains(query) ||
+                recipe.ingredients.joined(separator: " ").localizedCaseInsensitiveContains(query)
+
+            return cuisineOK && difficultyOK && queryOK
         }
     }
     
@@ -61,7 +66,16 @@ class RecipeViewModel {
         isLoading = false
     }
     
-    
+    /*
+     func toggleFavorite(_ recipe: Recipe) {
+         if favoriteIDs.contains(recipe.id) {
+             favoriteIDs.remove(recipe.id)
+         } else {
+             favoriteIDs.insert(recipe.id)
+         }
+     }
+
+     */
     
     func toggleFavorite(_ recipe: Recipe) {
         favoriteIDs.formSymmetricDifference([recipe.id])

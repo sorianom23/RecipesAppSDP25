@@ -1,19 +1,23 @@
-
 import SwiftUI
+import SwiftData
 
 struct ShoppingListView: View {
-    
-    @Environment(ShoppingListViewModel.self) private var viewModel: ShoppingListViewModel
 
+    @Environment(\.modelContext) private var context
+    @Query private var items: [Item]
+    @State private var viewModel: ShoppingListViewModel
+
+    init() {
+        _viewModel = State(initialValue: ShoppingListViewModel(context: nil))
+    }
+
+    
     var body: some View {
         NavigationStack {
             VStack {
                 HStack {
-                    TextField("Add item...", text: Binding(
-                        get: { viewModel.newItem },
-                        set: { viewModel.newItem = $0 }
-                    ))
-                    .textFieldStyle(.roundedBorder)
+                    TextField("Add item...", text: $viewModel.newItem)
+                        .textFieldStyle(TextFieldCustom())
 
                     Button(action: viewModel.addItem) {
                         Image(systemName: "plus.circle.fill")
@@ -25,7 +29,7 @@ struct ShoppingListView: View {
                 .padding()
 
                 List {
-                    ForEach(viewModel.items) { item in
+                    ForEach(items) { item in
                         HStack {
                             Image(systemName: item.isCompleted ? "checkmark.circle.fill" : "circle")
                                 .foregroundColor(item.isCompleted ? .green : .gray)
@@ -39,16 +43,22 @@ struct ShoppingListView: View {
                         }
                         .padding(.vertical, 4)
                     }
+                    .onDelete { indexSet in
+                        let toDelete = indexSet.map { items[$0] }
+                        viewModel.deleteItems(toDelete)
+                    }
                 }
             }
             .navigationTitle("🛒 Shopping list")
+        }
+        .onAppear {
+            viewModel.context = context
         }
     }
 }
 
 
-#Preview("Shopping List") {
-    ShoppingListView()
-        .environment(ShoppingListViewModel())
-}
 
+#Preview("Shopping List", traits: .sampleData) {
+    ShoppingListView()
+}

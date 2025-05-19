@@ -5,36 +5,37 @@
 //  Created by Maria Soriano on 14/5/25.
 //
 import Foundation
-import Observation
-
-struct ShoppingItem: Identifiable, Hashable {
-    let id = UUID()
-    var name: String
-    var isCompleted: Bool = false
-}
-
+import SwiftData
 
 @Observable
 class ShoppingListViewModel {
-    var items: [ShoppingItem] = [
-        ShoppingItem(name: "Tomates"),
-        ShoppingItem(name: "Mozzarella"),
-        ShoppingItem(name: "Albahaca"),
-        ShoppingItem(name: "Aceite de oliva")
-    ]
-    
     var newItem: String = ""
-    
+    var context: ModelContext?
+
+    init(context: ModelContext?) {
+        self.context = context
+    }
+
     func addItem() {
         let trimmed = newItem.trimmingCharacters(in: .whitespaces)
         guard !trimmed.isEmpty else { return }
-        items.append(ShoppingItem(name: trimmed))
+
+        let item = Item(name: trimmed)
+        context?.insert(item)
+        try? context?.save()
+
         newItem = ""
     }
 
-    func toggleCompletion(for item: ShoppingItem) {
-        if let index = items.firstIndex(of: item) {
-            items[index].isCompleted.toggle()
+    func toggleCompletion(for item: Item) {
+        item.isCompleted.toggle()
+        try? context?.save()
+    }
+
+    func deleteItems(_ items: [Item]) {
+        for item in items {
+            context?.delete(item)
         }
+        try? context?.save()
     }
 }

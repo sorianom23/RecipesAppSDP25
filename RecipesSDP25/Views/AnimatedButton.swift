@@ -4,6 +4,8 @@ import SwiftUI
 struct AnimatedButton: View {
     
     @State private var isAnimating = false
+    @State private var scale: CGFloat = 1
+    @State private var isPressed: Bool = false
     
     var action: () -> Void
 
@@ -12,16 +14,15 @@ struct AnimatedButton: View {
             RoundedRectangle(cornerRadius: 25)
                 .fill(
                     AngularGradient(
-                        colors: [.teal, .pink, .red, .teal],
+                        colors: [.green, .pink, .blue, .teal],
                         center: .center,
                         angle: .degrees(isAnimating ? 360 : 0)
                     )
                 )
+                .blur(radius: isAnimating ? 5 : 14)
                 .frame(width: 250, height: 50)
-                .blur(radius: 20)
-                .shadow(color: Color.blue.opacity(0.3), radius: 12, x: 0, y: 0)
                 .onAppear {
-                    withAnimation(.linear(duration: 8).repeatForever(autoreverses: false)) {
+                    withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
                         isAnimating = true
                     }
                 }
@@ -37,6 +38,7 @@ struct AnimatedButton: View {
                     .overlay {
                         RoundedRectangle(cornerRadius: 25).stroke(Color.black, lineWidth: 3)
                     }
+
             }
         }
     }

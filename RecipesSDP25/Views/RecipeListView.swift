@@ -1,5 +1,3 @@
-
-
 import SwiftUI
 
 struct RecipeListView: View {
@@ -8,6 +6,7 @@ struct RecipeListView: View {
 
     @State private var selectedCuisine: String = "All"
     @State private var selectedDifficulty: String = "All"
+    @State private var searchText: String = ""
 
     var body: some View {
         NavigationStack {
@@ -19,7 +18,8 @@ struct RecipeListView: View {
 
                 List(viewModel.filteredRecipes(
                     cuisine: selectedCuisine,
-                    difficulty: selectedDifficulty
+                    difficulty: selectedDifficulty,
+                    query: searchText
                 )) { recipe in
                     NavigationLink(destination: DetailView(recipe: recipe)) {
                         HStack(alignment: .top) {
@@ -71,14 +71,22 @@ struct RecipeListView: View {
                     }
                 }
                 .listStyle(.plain)
-                .navigationTitle("Recipes")
+                
             }
+            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
+            .disableAutocorrection(true)
+            .textInputAutocapitalization(.never)
+            .onSubmit(of: .search) {
+                print("Buscar: \(searchText)")
+            }
+
+            .navigationTitle("Recipes")
         }
     }
 }
-
 
 #Preview {
     RecipeListView()
         .environment(RecipeViewModel())
 }
+
