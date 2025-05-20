@@ -11,23 +11,25 @@ import SwiftData
 struct RecipesSDP25App: App {
 
     @State private var viewModel = RecipeViewModel()
-
-    let container: ModelContainer
-
-    init() {
+    
+    var sharedModelContainer: ModelContainer {
+        let schema = Schema([Item.self])
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+        
         do {
-            container = try ModelContainer(for: Item.self)
+            return try ModelContainer(for: schema, configurations: modelConfiguration)
         } catch {
-            fatalError("No se pudo crear ModelContainer: \(error)")
+            fatalError("No se pudo crear el ModelContainer: \(error)")
         }
+        
     }
 
     var body: some Scene {
         WindowGroup {
             WelcomeView()
                 .environment(viewModel)
-                .environment(ShoppingListViewModel(context: container.mainContext))
-                .modelContainer(container)
+                .environment(ShoppingListViewModel(context: sharedModelContainer.mainContext))
+                .modelContainer(sharedModelContainer)
         }
     }
 }

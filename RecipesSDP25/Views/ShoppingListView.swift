@@ -4,7 +4,7 @@ import SwiftData
 struct ShoppingListView: View {
 
     @Environment(\.modelContext) private var context
-    @Query private var items: [Item]
+    @Query private var items: [Item] // lo que nos va a permitir consultar la base de datos
     @State private var viewModel: ShoppingListViewModel
 
     init() {

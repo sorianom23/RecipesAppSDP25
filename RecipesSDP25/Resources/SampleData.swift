@@ -2,15 +2,17 @@
 //  SampleData.swift
 //  RecipesSDP25
 //
-//  Created by Maria Soriano on 19/5/25.
+//  Created by Maria Soriano on 20/5/25.
 //
 import SwiftData
 import SwiftUI
 
 struct SampleData: PreviewModifier {
-    static func makeSharedContext() async throws -> ModelContainer {
-        let schema = Schema([Item.self])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+    
+    static func makeSharedContext() async throws -> ModelContainer { // vamos a devolver un ModelContainer de prueba
+        
+        let schema = Schema([Item.self]) // tabla
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true) // true porq no almacena en la base de datos
         let container = try ModelContainer(for: schema, configurations: [modelConfiguration])
 
         let sampleItems = [
@@ -30,12 +32,9 @@ struct SampleData: PreviewModifier {
 
     func body(content: Content, context: ModelContainer) -> some View {
         content.modelContainer(context)
-    }
+    } // la vista y el contexto de la propia vista y se añade a la vista
 }
 
 extension PreviewTrait where T == Preview.ViewTraits {
-    @MainActor static var sampleData: Self = .modifier(SampleData())
+    @MainActor static var sampleData: Self = .modifier(SampleData()) // para que vaya sobre el hilo principal y no tengamos problemas de concurrencia @MainActor
 }
-
-
-

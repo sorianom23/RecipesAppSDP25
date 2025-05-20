@@ -52,7 +52,6 @@ struct TimerView: View {
         }
     }
 
-    // MARK: - Timer logic
 
     func toggleTimer() {
         isRunning ? stopTimer() : startTimer()
